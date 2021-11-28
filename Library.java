@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Library implements ActionListener{
+public class Library implements ActionListener {
     JFrame LoginFrame = new JFrame();
     JFrame RegisterFrame = new JFrame();
     JFrame DashFrame = new JFrame();
@@ -11,6 +11,7 @@ public class Library implements ActionListener{
     JFrame viewBFrame = new JFrame();
     JFrame StudentFrame = new JFrame();
     JFrame BorrowFrame = new JFrame();
+    JFrame ReturnFrame = new JFrame();
 
     JPanel RegisterPanel = new JPanel();
     JPanel LoginPanel = new JPanel();
@@ -19,6 +20,7 @@ public class Library implements ActionListener{
     JPanel viewBPanel = new JPanel();
     JPanel StudentPanel = new JPanel();
     JPanel BorrowPanel = new JPanel();
+    JPanel ReturnPanel = new JPanel();
 
     JButton functionalButton[] = new JButton[3];
     JButton RegisterButton[] = new JButton[2];
@@ -27,6 +29,7 @@ public class Library implements ActionListener{
     JButton viewButton = new JButton();
     JButton StudentButton[] = new JButton[2];
     JButton BorrowButton = new JButton();
+    JButton ReturnButton = new JButton();
 
     JLabel LoginLabel[] = new JLabel[2];
     JLabel RegisterLabel[] = new JLabel[5];
@@ -35,6 +38,7 @@ public class Library implements ActionListener{
     JLabel viewBLabel[] = new JLabel[12];
     JLabel StudentLabel[] = new JLabel[3];
     JLabel BorrowLabel[] = new JLabel[2];
+    JLabel ReturnLabel[] = new JLabel[2];
 
     JTextField RegisterField[] = new JTextField[5];
     JPasswordField RegisterPass[] = new JPasswordField[2];
@@ -43,10 +47,11 @@ public class Library implements ActionListener{
     JTextField adBField[] = new JTextField[3];
     JTextField StudentField[] = new JTextField[3];
     JTextField BorrowField[] = new JTextField[2];
+    JTextField ReturnField[] = new JTextField[2];
 
     Font MainFont = new Font("Ink Free", Font.PLAIN, 16);
     Font DashFont = new Font("Ink Free", Font.PLAIN, 17);
-    
+
     String username, displayname, password;
     String adminUser[] = new String[10];
     String adminPass[] = new String[10];
@@ -60,8 +65,8 @@ public class Library implements ActionListener{
     int studentcount = 0;
     int bookcount = 0;
     int adminID = 1;
-    
-    Library(){
+    ImageIcon icon = new ImageIcon("book.png");
+    Library() {
         Login();
         Register();
         dashboard();
@@ -69,12 +74,14 @@ public class Library implements ActionListener{
         addStudent();
         viewBook();
         borrow();
+        returnBook();
         LoginFrame.setVisible(true);
     }
 
-    private void Login(){
+    private void Login() {
         LoginFrame.setTitle("Login Account");
         LoginFrame.setResizable(false);
+        LoginFrame.setIconImage(icon.getImage());
         LoginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         LoginFrame.setLocationRelativeTo(null);
         LoginFrame.setSize(400, 230);
@@ -83,14 +90,14 @@ public class Library implements ActionListener{
         LoginPanel.add(Username);
         LoginPanel.add(Password);
 
-        for(int i = 0; i < LoginLabel.length; i++){
+        for (int i = 0; i < LoginLabel.length; i++) {
             LoginLabel[i] = new JLabel();
             LoginLabel[i].setFont(MainFont);
             LoginPanel.add(LoginLabel[i]);
-            
+
         }
 
-        for(int i = 0; i < functionalButton.length; i++){ 
+        for (int i = 0; i < functionalButton.length; i++) {
             functionalButton[i] = new JButton();
             functionalButton[i].setFocusable(false);
             functionalButton[i].setFont(MainFont);
@@ -115,16 +122,17 @@ public class Library implements ActionListener{
         LoginFrame.add(LoginPanel);
     }
 
-    private void Register(){
+    private void Register() {
         RegisterFrame = new JFrame();
         RegisterFrame.setTitle("Register Account");
         RegisterFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         RegisterFrame.setResizable(false);
         RegisterFrame.setSize(450, 550);
+        RegisterFrame.setIconImage(icon.getImage());
 
         RegisterPanel.setLayout(null);
 
-        for(int i = 0; i < RegisterButton.length; i++){
+        for (int i = 0; i < RegisterButton.length; i++) {
             RegisterButton[i] = new JButton();
             RegisterButton[i].setFocusable(false);
             RegisterButton[i].setBorder(null);
@@ -136,13 +144,13 @@ public class Library implements ActionListener{
         RegisterButton[0].setText("Submit");
         RegisterButton[1].setText("Cancel");
 
-        for(int i = 0; i < RegisterPass.length; i++){
+        for (int i = 0; i < RegisterPass.length; i++) {
             RegisterPass[i] = new JPasswordField();
             RegisterPass[i].setHorizontalAlignment(JPasswordField.CENTER);
             RegisterPanel.add(RegisterPass[i]);
         }
 
-        for(int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             RegisterLabel[i] = new JLabel();
             RegisterField[i] = new JTextField();
             RegisterField[i].setFont(MainFont);
@@ -178,22 +186,24 @@ public class Library implements ActionListener{
 
     }
 
-    private void dashboard(){
+    private void dashboard() {
         DashFrame.setTitle("Dashboard - Library System");
         DashFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         DashFrame.setLocationRelativeTo(null);
         DashFrame.setResizable(false);
         DashFrame.setSize(570, 400);
         DashFrame.add(DashPanel);
+        DashFrame.setIconImage(icon.getImage());
+
         DashPanel.setLayout(null);
 
-        for(int i = 0; i < DashLabel.length; i++){
+        for (int i = 0; i < DashLabel.length; i++) {
             DashLabel[i] = new JLabel();
             DashLabel[i].setFont(DashFont);
             DashPanel.add(DashLabel[i]);
         }
 
-        for(int i = 0; i < DashButton.length; i++){
+        for (int i = 0; i < DashButton.length; i++) {
             DashButton[i] = new JButton();
             DashButton[i].setFocusable(false);
             DashButton[i].setFont(DashFont);
@@ -203,7 +213,7 @@ public class Library implements ActionListener{
             DashPanel.add(DashButton[i]);
         }
 
-        //DashLabel[0].setText("<html>Welcome <b>" + displayname + "!<b><html>");
+        // DashLabel[0].setText("<html>Welcome <b>" + displayname + "!<b><html>");
         DashLabel[1].setText("<html>You're logged-in as <b>Admin</b></html>");
         DashLabel[0].setBounds(20, 20, 400, 20);
         DashLabel[1].setBounds(20, 40, 400, 20);
@@ -222,16 +232,17 @@ public class Library implements ActionListener{
         DashButton[5].setBounds(300, 280, 250, 45);
     }
 
-    private void addBook(){
+    private void addBook() {
         adBFrame.setTitle("Add Book");
         adBFrame.setSize(400, 200);
         adBFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         adBFrame.setResizable(false);
         adBFrame.setLocationRelativeTo(null);
+        adBFrame.setIconImage(icon.getImage());
         adBPanel.setLayout(null);
         adBFrame.add(adBPanel);
 
-        for(int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             adBLabel[i] = new JLabel();
             adBField[i] = new JTextField();
             adBLabel[i].setFont(MainFont);
@@ -256,20 +267,21 @@ public class Library implements ActionListener{
         adBLabel[2].setText("<html><b>Book Quantity</b></html>");
         adBLabel[2].setBounds(10, 90, 200, 20);
         adBField[2].setBounds(150, 90, 245, 20);
-        
+
         adBButton.setBounds(50, 130, 300, 30);
     }
 
-    private void addStudent(){
+    private void addStudent() {
         StudentFrame.setTitle("Add Student");
         StudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         StudentFrame.setSize(300, 380);
         StudentFrame.setResizable(false);
         StudentFrame.setLocationRelativeTo(null);
         StudentFrame.add(StudentPanel);
+        StudentFrame.setIconImage(icon.getImage());
         StudentPanel.setLayout(null);
 
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             StudentButton[i] = new JButton();
             StudentButton[i].setFocusable(false);
             StudentButton[i].setBorder(null);
@@ -279,7 +291,7 @@ public class Library implements ActionListener{
             StudentPanel.add(StudentButton[i]);
         }
 
-        for(int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             StudentField[i] = new JTextField();
             StudentField[i].setFont(MainFont);
             StudentField[i].setHorizontalAlignment(JTextField.CENTER);
@@ -306,16 +318,17 @@ public class Library implements ActionListener{
         StudentButton[1].setBounds(150, 280, 120, 30);
     }
 
-    private void borrow(){
+    private void borrow() {
         BorrowFrame.setTitle("Borrow Book");
         BorrowFrame.setLocationRelativeTo(null);
         BorrowFrame.setResizable(false);
         BorrowFrame.setSize(300, 200);
         BorrowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         BorrowFrame.add(BorrowPanel);
+        BorrowFrame.setIconImage(icon.getImage());
         BorrowPanel.setLayout(null);
 
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             BorrowLabel[i] = new JLabel();
             BorrowField[i] = new JTextField();
             BorrowLabel[i].setFont(MainFont);
@@ -341,16 +354,53 @@ public class Library implements ActionListener{
         BorrowButton.setBounds(75, 110, 150, 30);
     }
 
-    private void viewBook(){
+    private void returnBook() {
+        ReturnFrame.setTitle("Return Book");
+        ReturnFrame.setLocationRelativeTo(null);
+        ReturnFrame.setResizable(false);
+        ReturnFrame.setSize(300, 200);
+        ReturnFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ReturnFrame.add(ReturnPanel);
+        ReturnFrame.setIconImage(icon.getImage());
+        ReturnPanel.setLayout(null);
+
+        for (int i = 0; i < 2; i++) {
+            ReturnLabel[i] = new JLabel();
+            ReturnField[i] = new JTextField();
+            ReturnLabel[i].setFont(MainFont);
+            ReturnField[i].setFont(MainFont);
+            ReturnPanel.add(ReturnLabel[i]);
+            ReturnPanel.add(ReturnField[i]);
+        }
+
+        ReturnLabel[0].setText("<html><b>Student ID</b></html>");
+        ReturnLabel[0].setBounds(10, 20, 200, 20);
+        ReturnField[0].setBounds(120, 20, 160, 20);
+        ReturnLabel[1].setText("<html><b>Book ID</b></html>");
+        ReturnLabel[1].setBounds(10, 60, 200, 20);
+        ReturnField[1].setBounds(120, 60, 160, 20);
+
+        ReturnPanel.add(ReturnButton);
+        ReturnButton.setText("Submit");
+        ReturnButton.setBorder(null);
+        ReturnButton.setFocusable(false);
+        ReturnButton.setFont(MainFont);
+        ReturnButton.addActionListener(this);
+        ReturnButton.setBackground(new Color(102, 178, 230));
+        ReturnButton.setBounds(75, 110, 150, 30);
+    }
+
+    private void viewBook() {
         viewBFrame.setTitle("View Book");
         viewBFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         viewBFrame.setSize(600, 400);
         viewBFrame.setResizable(false);
         viewBFrame.setLocationRelativeTo(null);
+        viewBFrame.setIconImage(icon.getImage());
         viewBFrame.add(viewBPanel);
         viewBPanel.setLayout(null);
 
-        for(int i = 0; i < viewBLabel.length; i++){
+        for (int i = 0; i < viewBLabel.length; i++) {
             viewBLabel[i] = new JLabel();
             viewBLabel[i].setFont(MainFont);
             viewBPanel.add(viewBLabel[i]);
@@ -385,26 +435,26 @@ public class Library implements ActionListener{
         viewButton.setBorder(null);
     }
 
-    public static void main(String [] args){
+    public static void main(String[] args) {
         new Library();
-    } 
+    }
 
     @Override
-    public void actionPerformed(ActionEvent e){
-        ///Tester Account
+    public void actionPerformed(ActionEvent e) {
+        /// Tester Account
         adminUser[0] = "admin";
         adminPass[0] = "123";
         adminDisplay[0] = "Test Account";
         String usr = Username.getText();
         String pw = String.valueOf(Password.getPassword());
         boolean failed = true;
-        if(e.getSource() == functionalButton[0]){
-            if(usr.isEmpty() && pw.isEmpty()){
+        if (e.getSource() == functionalButton[0]) {
+            if (usr.isEmpty() && pw.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Enter Username and Password");
             }
 
-            for(int i = 0; i < adminID; i++){
-                if(usr.matches(adminUser[i]) && pw.matches(adminPass[i])){
+            for (int i = 0; i < adminID; i++) {
+                if (usr.matches(adminUser[i]) && pw.matches(adminPass[i])) {
                     username = adminUser[i];
                     password = adminPass[i];
                     displayname = adminDisplay[i];
@@ -416,20 +466,20 @@ public class Library implements ActionListener{
                     failed = false;
                 }
             }
-            if(failed){
+            if (failed) {
                 JOptionPane.showMessageDialog(null, "Invalid Username or Password");
             }
         }
 
-        if(e.getSource() == functionalButton[1]){
+        if (e.getSource() == functionalButton[1]) {
             RegisterFrame.setVisible(true);
         }
 
-        if(e.getSource() == functionalButton[2]){
+        if (e.getSource() == functionalButton[2]) {
             System.exit(0);
         }
 
-        if(e.getSource() == RegisterButton[0]){
+        if (e.getSource() == RegisterButton[0]) {
             String regusr = RegisterField[0].getText();
             String regpw = String.valueOf(RegisterPass[0].getPassword());
             String regrpw = String.valueOf(RegisterPass[1].getPassword());
@@ -437,25 +487,19 @@ public class Library implements ActionListener{
             boolean UserFirstChar = (regusr.charAt(0) >= '0' && regusr.charAt(0) <= '9');
             String errortitle = "Registration Error";
 
-            if(regusr.isEmpty() || regpw.isEmpty() || regrpw.isEmpty() || regname.isEmpty()){
+            if (regusr.isEmpty() || regpw.isEmpty() || regrpw.isEmpty() || regname.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill up all form", errortitle, 0);
-            }
-            else if(UserFirstChar){
+            } else if (UserFirstChar) {
                 JOptionPane.showMessageDialog(null, "Username first character is a number", errortitle, 0);
-            }
-            else if(!regpw.equals(regrpw)){
+            } else if (!regpw.equals(regrpw)) {
                 JOptionPane.showMessageDialog(null, "Password and Retype Password does not match", errortitle, 0);
-            }
-            else if(regusr.length() < 6){
+            } else if (regusr.length() < 6) {
                 JOptionPane.showMessageDialog(null, "Username should be 6 characters long", errortitle, 0);
-            }
-            else if(regpw.length() < 8){
+            } else if (regpw.length() < 8) {
                 JOptionPane.showMessageDialog(null, "Password should be 8 characters long", errortitle, 0);
-            }
-            else if(regname.length() < 6){
+            } else if (regname.length() < 6) {
                 JOptionPane.showMessageDialog(null, "Display name should be 6 characters long", errortitle, 0);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Registration Success", "Success", 1);
                 RegisterPass[0].setText("");
                 RegisterPass[1].setText("");
@@ -467,33 +511,33 @@ public class Library implements ActionListener{
                 adminID++;
                 RegisterFrame.dispose();
             }
-        }   
+        }
 
-        if(e.getSource() == RegisterButton[1]){
+        if (e.getSource() == RegisterButton[1]) {
             RegisterFrame.dispose();
         }
-        
-        if(e.getSource() == DashButton[0]){
+
+        if (e.getSource() == DashButton[0]) {
             adBFrame.setVisible(true);
         }
 
-        if(e.getSource() == DashButton[1]){
+        if (e.getSource() == DashButton[1]) {
             StudentFrame.setVisible(true);
         }
 
-        if(e.getSource() == StudentButton[0]){
+        if (e.getSource() == StudentButton[0]) {
             String studentid = StudentField[0].getText();
             String studentname = StudentField[1].getText();
 
-            if(studentid.isEmpty() || studentname.isEmpty()){
+            if (studentid.isEmpty() || studentname.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
             }
 
-            else if(studentname.length() < 8){
+            else if (studentname.length() < 8) {
                 JOptionPane.showMessageDialog(null, "Enter fullname of student", "Error", 0);
             }
 
-            else{
+            else {
                 JOptionPane.showMessageDialog(null, "Registration Success", "Success", 1);
                 StudentField[0].setText("");
                 StudentField[1].setText("");
@@ -504,57 +548,81 @@ public class Library implements ActionListener{
             }
         }
 
-        if(e.getSource() == StudentButton[1]){
+        if (e.getSource() == StudentButton[1]) {
             StudentFrame.dispose();
         }
 
-        if(e.getSource() == DashButton[2]){
+        if (e.getSource() == DashButton[2]) {
             BorrowFrame.setVisible(true);
         }
 
-        if(e.getSource() == BorrowButton){
+        if (e.getSource() == BorrowButton) {
             String borrowStudent = BorrowField[0].getText();
             String borrowBook = BorrowField[1].getText();
 
-            if(borrowStudent.isEmpty() || borrowBook.isEmpty()){
+            if (borrowStudent.isEmpty() || borrowBook.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
             }
-   
-            for(int i = 0; i < BookCode.length; i++){
-                if(borrowStudent.matches(studentID[i]) && borrowBook.matches(BookCode[i])){
-                    int x = Integer.parseInt(BookQuantity[i]);
-                    if(x <= 0){
-                        JOptionPane.showMessageDialog(null, "The book is not available", "Error", 1);
-                    }
+
+            for (int i = 0; i < BookCode.length; i++) {
+                int x = Integer.parseInt(BookQuantity[i]);
+
+                if (x <= 0) {
+                    JOptionPane.showMessageDialog(null, "The book is not available", "Error", 1);
+                } else if (borrowStudent.matches(studentID[i]) && borrowBook.matches(BookCode[i])) {
                     JOptionPane.showMessageDialog(null, "Borrow Success", "Success", 0);
                     x--;
                     BookQuantity[i] = String.valueOf(x);
                     BorrowField[0].setText("");
                     BorrowField[1].setText("");
                     BorrowFrame.dispose();
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Invalid Student ID or Book ID", "Error", 0);
                 }
             }
         }
 
-        if(e.getSource() == DashButton[4]){
+        if(e.getSource() == DashButton[3]){
+            ReturnFrame.setVisible(true);
+        }
+
+        if (e.getSource() == ReturnButton) {
+            String returnStudent = ReturnField[0].getText();
+            String returnBook = ReturnField[1].getText();
+
+            if (returnStudent.isEmpty() || returnBook.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
+            }
+
+            for (int i = 0; i < BookCode.length; i++) {
+                int x = Integer.parseInt(BookQuantity[i]);
+                if (returnStudent.matches(studentID[i]) && returnBook.matches(BookCode[i])) {
+                    JOptionPane.showMessageDialog(null, studentName[i] + " returned the book", "Success", 0);
+                    x++;
+                    BookQuantity[i] = String.valueOf(x);
+                    ReturnField[0].setText("");
+                    ReturnField[1].setText("");
+                    ReturnFrame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid Student ID or Book ID", "Error", 0);
+                }
+            }
+        }
+
+        if (e.getSource() == DashButton[4]) {
             viewBFrame.setVisible(true);
-            if(bookcount == 1){
+            if (bookcount == 1) {
                 viewBLabel[3].setText(BookCode[0]);
                 viewBLabel[4].setText(BookTitle[0]);
                 viewBLabel[5].setText(BookQuantity[0]);
-            }
-            else if(bookcount == 2){
+            } else if (bookcount == 2) {
                 viewBLabel[3].setText(BookCode[0]);
                 viewBLabel[4].setText(BookTitle[0]);
                 viewBLabel[5].setText(BookQuantity[0]);
                 viewBLabel[6].setText(BookCode[1]);
                 viewBLabel[7].setText(BookTitle[1]);
                 viewBLabel[8].setText(BookQuantity[1]);
-            }
-            else{
+            } else {
                 viewBLabel[3].setText(BookCode[0]);
                 viewBLabel[4].setText(BookTitle[0]);
                 viewBLabel[5].setText(BookQuantity[0]);
@@ -566,31 +634,35 @@ public class Library implements ActionListener{
                 viewBLabel[11].setText(BookQuantity[2]);
             }
         }
-        
-        if(e.getSource() == DashButton[5]){
-           DashFrame.dispose();
-           LoginFrame.setVisible(true);
+
+        if (e.getSource() == viewButton) {
+            viewBFrame.dispose();
         }
-        
-        if(e.getSource() == adBButton){
+
+        if (e.getSource() == DashButton[5]) {
+            DashFrame.dispose();
+            LoginFrame.setVisible(true);
+        }
+
+        if (e.getSource() == adBButton) {
             String bookid = adBField[0].getText();
             String booktitle = adBField[1].getText();
             String bookpcs = adBField[2].getText();
             boolean notDigit = (bookpcs.charAt(0) >= '1' && bookpcs.charAt(0) <= '9');
 
-            if(bookcount == 3){
+            if (bookcount == 3) {
                 JOptionPane.showMessageDialog(null, "Can't add anymore, Maximum has been reached", "Error", 0);
             }
 
-            else if(bookid.isEmpty() || booktitle.isEmpty() || bookpcs.isEmpty()){
+            else if (bookid.isEmpty() || booktitle.isEmpty() || bookpcs.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill up all form", "Error", 0);
             }
 
-            else if(notDigit == false){
+            else if (notDigit == false) {
                 JOptionPane.showMessageDialog(null, "Please enter correct book Quantity", "Error", 0);
             }
-            
-            else{
+
+            else {
                 JOptionPane.showMessageDialog(null, "Book Added", "Success", 1);
                 String bookID = bookid;
                 String bookTitle = booktitle;
@@ -606,8 +678,5 @@ public class Library implements ActionListener{
             }
         }
 
-        if(e.getSource() == viewButton){
-            viewBFrame.dispose();
-        }
     }
 }
