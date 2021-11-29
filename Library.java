@@ -565,6 +565,7 @@ public class Library implements ActionListener {
 
             if (borrowStudent.isEmpty() || borrowBook.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
+                return;
             }
 
             for (int i = 0; i < studentID.length; i++) {
@@ -586,10 +587,16 @@ public class Library implements ActionListener {
                             BorrowField[1].setText("");
                             BorrowFrame.dispose();
                         }
-                        if(not){JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 1);}
+                        if(not){
+                            JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 1);
+                            return;
+                        }
                     }
                 }
-                if(not){JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 1);}
+                if(not){
+                    JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 1);
+                    return;
+                }
             }    
         }
 
@@ -626,10 +633,16 @@ public class Library implements ActionListener {
                                 ReturnFrame.dispose();
                             }
                         }
-                        if(not){JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 0);}
+                        if(not){
+                            JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 0);
+                            return;
+                        }
                     }
                 }
-                if(not){JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 0);}
+                if(not){
+                    JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 0);
+                    return;
+            }
             }        
         }
 
