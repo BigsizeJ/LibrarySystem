@@ -65,6 +65,8 @@ public class Library implements ActionListener {
     int studentcount = 0;
     int bookcount = 0;
     int adminID = 1;
+    int BookLimit[] = new int[3];
+
     ImageIcon icon = new ImageIcon("book.png");
     Library() {
         Login();
@@ -564,22 +566,31 @@ public class Library implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
             }
 
-            for (int i = 0; i < BookCode.length; i++) {
-                int x = Integer.parseInt(BookQuantity[i]);
-
-                if (x <= 0) {
-                    JOptionPane.showMessageDialog(null, "The book is not available", "Error", 1);
-                } else if (borrowStudent.matches(studentID[i]) && borrowBook.matches(BookCode[i])) {
-                    JOptionPane.showMessageDialog(null, "Borrow Success", "Success", 0);
-                    x--;
-                    BookQuantity[i] = String.valueOf(x);
-                    BorrowField[0].setText("");
-                    BorrowField[1].setText("");
-                    BorrowFrame.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid Student ID or Book ID", "Error", 0);
+            for (int i = 0; i < studentID.length; i++) {
+                if(borrowStudent.matches(studentID[i])) {
+                    for(int j = 0; j <= BookCode.length; j++){
+                        int x = Integer.parseInt(BookQuantity[j]);
+                        if (x <= 0) {
+                            JOptionPane.showMessageDialog(null, "The book is not available", "Error", 1);
+                            return;
+                        }
+                        if(borrowBook.matches(BookCode[j])){
+                            JOptionPane.showMessageDialog(null, "Borrow Success", "Success", 0);
+                            x--;
+                            BookQuantity[j] = String.valueOf(x);
+                            BorrowField[0].setText("");
+                            BorrowField[1].setText("");
+                            BorrowFrame.dispose();
+                        }
+                    }
+                }
+                else if(i >= studentID.length){
+                    break;
                 }
             }
+            JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 0);
+
+           
         }
 
         if(e.getSource() == DashButton[3]){
@@ -594,19 +605,29 @@ public class Library implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
             }
 
-            for (int i = 0; i < BookCode.length; i++) {
-                int x = Integer.parseInt(BookQuantity[i]);
-                if (returnStudent.matches(studentID[i]) && returnBook.matches(BookCode[i])) {
-                    JOptionPane.showMessageDialog(null, studentName[i] + " returned the book", "Success", 0);
-                    x++;
-                    BookQuantity[i] = String.valueOf(x);
-                    ReturnField[0].setText("");
-                    ReturnField[1].setText("");
-                    ReturnFrame.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid Student ID or Book ID", "Error", 0);
+            for (int i = 0; i < studentID.length; i++) {
+                if(returnStudent.matches(studentID[i])) {
+                    for(int j = 0; j < BookCode.length; j++){
+                        int x = Integer.parseInt(BookQuantity[j]);
+                        if(returnBook.matches(BookCode[j])){
+                            if(x >= BookLimit[j]){
+                                JOptionPane.showMessageDialog(null, BookTitle[j] + " has " + BookQuantity[j] + " maximum quantity", "Error", 0);
+                                return;
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(null, studentName[i] + " returned the book", "Success", 0);
+                                x++;
+                                BookQuantity[j] = String.valueOf(x);
+                                ReturnField[0].setText("");
+                                ReturnField[1].setText("");
+                                ReturnFrame.dispose();
+                            }
+                        }
+                    }
                 }
             }
+            JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 0);
+            
         }
 
         if (e.getSource() == DashButton[4]) {
@@ -650,15 +671,23 @@ public class Library implements ActionListener {
             String bookpcs = adBField[2].getText();
             boolean notDigit = (bookpcs.charAt(0) >= '1' && bookpcs.charAt(0) <= '9');
 
-            if (bookcount == 3) {
+            if(bookcount == 3) {
                 JOptionPane.showMessageDialog(null, "Can't add anymore, Maximum has been reached", "Error", 0);
+                return;
             }
 
-            else if (bookid.isEmpty() || booktitle.isEmpty() || bookpcs.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please fill up all form", "Error", 0);
+            for(int i = 0; i < bookpcs.length(); i++){
+                if(bookpcs.toUpperCase().charAt(i) >= 'A' && bookpcs.toUpperCase().charAt(i) <= 'Z'){
+                    JOptionPane.showMessageDialog(null, "Number Only", "Book Quantity", 0);
+                    return;
+                }
             }
 
-            else if (notDigit == false) {
+            if(bookid.isEmpty() || booktitle.isEmpty() || bookpcs.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
+            }
+
+            else if(notDigit == false) {
                 JOptionPane.showMessageDialog(null, "Please enter correct book Quantity", "Error", 0);
             }
 
@@ -673,6 +702,8 @@ public class Library implements ActionListener {
                 BookCode[bookcount] = bookID;
                 BookTitle[bookcount] = bookTitle;
                 BookQuantity[bookcount] = bookQuantity;
+                int x = Integer.parseInt(bookQuantity);
+                BookLimit[bookcount] = x;
                 bookcount++;
                 adBFrame.dispose();
             }
