@@ -561,7 +561,7 @@ public class Library implements ActionListener {
         if (e.getSource() == BorrowButton) {
             String borrowStudent = BorrowField[0].getText();
             String borrowBook = BorrowField[1].getText();
-            boolean not = true;
+            boolean not = false;
 
             if (borrowStudent.isEmpty() || borrowBook.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
@@ -570,16 +570,13 @@ public class Library implements ActionListener {
 
             for (int i = 0; i < studentID.length; i++) {
                 if(borrowStudent.matches(studentID[i])) {
-                    not = false;
                     for(int j = 0; j <= BookCode.length; j++){
-                        not = true;
                         int x = Integer.parseInt(BookQuantity[j]);
                         if (x <= 0) {
                             JOptionPane.showMessageDialog(null, "The book is not available", "Error", 1);
                             return;
                         }
                         if(borrowBook.matches(BookCode[j])){
-                            not = false;
                             JOptionPane.showMessageDialog(null, "Borrow Success", "Success", 0);
                             x--;
                             BookQuantity[j] = String.valueOf(x);
@@ -587,11 +584,17 @@ public class Library implements ActionListener {
                             BorrowField[1].setText("");
                             BorrowFrame.dispose();
                         }
+                        if(j >= 3){
+                            not = true;
+                        }
                         if(not){
                             JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 1);
                             return;
                         }
                     }
+                }
+                if(i >= 3){
+                    not = true;
                 }
                 if(not){
                     JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 1);
@@ -607,19 +610,16 @@ public class Library implements ActionListener {
         if (e.getSource() == ReturnButton) {
             String returnStudent = ReturnField[0].getText();
             String returnBook = ReturnField[1].getText();
-            boolean not = true;
+            boolean not = false;
             if (returnStudent.isEmpty() || returnBook.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill up form", "Error", 0);
             }
 
             for (int i = 0; i < studentID.length; i++) {
                 if(returnStudent.matches(studentID[i])) {
-                    not = false;
                     for(int j = 0; j < BookCode.length; j++){
-                        not = true;
                         int x = Integer.parseInt(BookQuantity[j]);
                         if(returnBook.matches(BookCode[j])){
-                            not = false;
                             if(x >= BookLimit[j]){
                                 JOptionPane.showMessageDialog(null, BookTitle[j] + " has " + BookQuantity[j] + " maximum quantity", "Error", 0);
                                 return;
@@ -633,11 +633,17 @@ public class Library implements ActionListener {
                                 ReturnFrame.dispose();
                             }
                         }
+                        if(j >= 3){
+                            not = true;
+                        }
                         if(not){
                             JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 0);
                             return;
                         }
                     }
+                }
+                if(i >= 3){
+                    not = true;
                 }
                 if(not){
                     JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 0);
@@ -711,11 +717,12 @@ public class Library implements ActionListener {
             else {
                 if(bookcount > 0){
                     for(int i = 0; i < BookCode.length; i++){
-                        if(bookid.matches(BookCode[i])){
+                        boolean ExistedID = (bookid.matches(BookCode[i]));
+                        if(ExistedID){
                             JOptionPane.showMessageDialog(null, "Book ID already exist", "Error", 0);
                             return;
                         }
-                        else{
+                        else if(!ExistedID){
                             JOptionPane.showMessageDialog(null, "Book Added", "Success", 1);
                             String bookID = bookid;
                             String bookTitle = booktitle;
