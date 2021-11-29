@@ -577,7 +577,7 @@ public class Library implements ActionListener {
                             return;
                         }
                         if(borrowBook.matches(BookCode[j])){
-                            JOptionPane.showMessageDialog(null, "Borrow Success", "Success", 0);
+                            JOptionPane.showMessageDialog(null, "Borrow Success", "Success", 1);
                             x--;
                             BookQuantity[j] = String.valueOf(x);
                             BorrowField[0].setText("");
@@ -588,7 +588,7 @@ public class Library implements ActionListener {
                             not = true;
                         }
                         if(not){
-                            JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 1);
+                            JOptionPane.showMessageDialog(null, "Invalid Book ID", "Error", 0);
                             return;
                         }
                     }
@@ -597,7 +597,7 @@ public class Library implements ActionListener {
                     not = true;
                 }
                 if(not){
-                    JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 1);
+                    JOptionPane.showMessageDialog(null, "Invalid Student ID", "Error", 0);
                     return;
                 }
             }    
